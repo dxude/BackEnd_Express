@@ -1,7 +1,6 @@
 const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
 
-// C - Create
 exports.createProfissional = async (req, res) => {
   try {
     const profissional = await prisma.profissional.create({ data: req.body });
@@ -11,13 +10,11 @@ exports.createProfissional = async (req, res) => {
   }
 };
 
-// R - Retrieve all
 exports.getAllProfissionais = async (req, res) => {
   const profissionais = await prisma.profissional.findMany({ include: { avaliacoes: true } });
   res.json(profissionais);
 };
 
-// R - Retrieve by ID
 exports.getProfissionalById = async (req, res) => {
   const { id } = req.params;
   const profissional = await prisma.profissional.findUnique({
@@ -27,7 +24,6 @@ exports.getProfissionalById = async (req, res) => {
   profissional ? res.json(profissional) : res.status(404).json({ error: 'Profissional não encontrado.' });
 };
 
-// U - Update
 exports.updateProfissional = async (req, res) => {
   const { id } = req.params;
   try {
@@ -41,7 +37,6 @@ exports.updateProfissional = async (req, res) => {
   }
 };
 
-// D - Delete
 exports.deleteProfissional = async (req, res) => {
   const { id } = req.params;
   try {
